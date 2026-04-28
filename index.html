@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaikot Kundu Akash — Portfolio</title>
+    <title>Shaikot Kundu Akash — Full-Stack Engineer & SaaS Architect</title>
+    <meta name="description" content="Portfolio of Shaikot Kundu Akash, a Full-Stack Engineer specializing in MERN stack, AI integration, and scalable SaaS solutions. Based in Dhaka, Bangladesh.">
+    <meta name="keywords" content="Shaikot Kundu Akash, Software Engineer, Full Stack Developer, MERN, Dhaka, Bangladesh, SaaS, AI Engineer">
+    <meta property="og:title" content="Shaikot Kundu Akash — Portfolio">
+    <meta property="og:description" content="Crafting scalable SaaS products and AI-integrated full-stack experiences.">
+    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,25 +26,25 @@
         }
 
         :root {
-            --bg: #080810;
-            --bg2: #0e0e1a;
-            --bg3: #161624;
-            --card: #0f0f1e;
-            --border: rgba(255, 255, 255, 0.07);
-            --border2: rgba(255, 255, 255, 0.13);
-            --text: #eeeef5;
-            --muted: #8080a0;
-            --accent: #7b6cf6;
-            --accent2: #3ecfc6;
-            --accent3: #ff6b6b;
-            --gold: #f5c842;
+            --bg: #05050a;
+            --bg2: #0a0a14;
+            --bg3: #121220;
+            --card: rgba(15, 15, 30, 0.4);
+            --border: rgba(255, 255, 255, 0.05);
+            --border2: rgba(255, 255, 255, 0.1);
+            --text: #f0f0f7;
+            --muted: #9494b8;
+            --accent: #8b7dfa;
+            --accent2: #4ade80;
+            --accent3: #f87171;
+            --gold: #fbbf24;
             --font-head: 'Outfit', sans-serif;
             --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
             --max-w: 1280px;
-            --nav-h: 64px;
-            --section-px: clamp(1.25rem, 5vw, 6rem);
-            --section-py: clamp(3.5rem, 8vw, 7rem);
+            --nav-h: 72px;
+            --section-px: clamp(1.5rem, 6vw, 8rem);
+            --section-py: clamp(4rem, 10vw, 8rem);
         }
 
         html {
@@ -90,10 +95,21 @@
             display: flex;
             align-items: center;
             padding: 0 var(--section-px);
-            background: rgba(8, 8, 16, 0.82);
-            backdrop-filter: blur(18px) saturate(1.4);
-            -webkit-backdrop-filter: blur(18px) saturate(1.4);
+            background: rgba(5, 5, 10, 0.7);
+            backdrop-filter: blur(24px) saturate(1.8);
+            -webkit-backdrop-filter: blur(24px) saturate(1.8);
             border-bottom: 1px solid var(--border);
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent), var(--accent2));
+            z-index: 1000;
+            transition: width 0.1s ease-out;
         }
 
         .nav-inner {
@@ -266,12 +282,16 @@
             height: 100%;
             object-fit: cover;
             object-position: center 20%;
-            filter: brightness(0.4) saturate(1.1);
-            /* Darkened for ultimate text contrast */
-            mask-image: linear-gradient(to left, black 20%, transparent 90%),
-                linear-gradient(to bottom, black 80%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to left, black 20%, transparent 90%),
-                linear-gradient(to bottom, black 80%, transparent 100%);
+            filter: brightness(0.6) saturate(1.1) contrast(1.1);
+            mask-image: linear-gradient(to left, black 30%, transparent 95%),
+                linear-gradient(to bottom, black 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 30%, transparent 95%),
+                linear-gradient(to bottom, black 85%, transparent 100%);
+            transition: transform 0.5s ease-out;
+        }
+
+        .hero:hover .hero-image-overlay img {
+            transform: scale(1.02);
         }
 
         .hero-content {
@@ -415,11 +435,12 @@
             border: none;
             cursor: pointer;
             display: inline-block;
+            box-shadow: 0 4px 12px rgba(139, 125, 250, 0.3), 0 1px 2px rgba(139, 125, 250, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(123, 108, 246, 0.45);
+            box-shadow: 0 12px 24px rgba(139, 125, 250, 0.4), 0 4px 8px rgba(139, 125, 250, 0.3);
         }
 
         .btn-outline {
@@ -528,11 +549,13 @@
         .about-highlight {
             background: var(--card);
             border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
             border-radius: 14px;
             padding: clamp(1.2rem, 2vw, 1.75rem);
             display: flex;
             flex-direction: column;
             gap: 1.1rem;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
         .highlight-item {
@@ -656,9 +679,10 @@
         .project-card {
             background: var(--card);
             border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
             padding: clamp(1.4rem, 2vw, 2rem);
-            transition: all 0.25s;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             gap: 0.9rem;
@@ -667,6 +691,7 @@
             color: inherit;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
         }
 
         .project-card::before {
@@ -683,9 +708,9 @@
         }
 
         .project-card:hover {
-            border-color: rgba(123, 108, 246, 0.35);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 125, 250, 0.15);
         }
 
         .project-card:hover::before {
@@ -1528,7 +1553,17 @@
         </div>
     </footer>
 
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <script>
+        // ── Scroll Progress ──
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("scrollProgress").style.width = scrolled + "%";
+        });
+
         // ── Hamburger menu ──
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap"
         rel="stylesheet">
 
     <style>
@@ -33,9 +33,9 @@
             --accent2: #3ecfc6;
             --accent3: #ff6b6b;
             --gold: #f5c842;
-            --font-head: 'Plus Jakarta Sans', sans-serif;
+            --font-head: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --font-serif: 'Playfair Display', serif;
             --max-w: 1280px;
             --nav-h: 64px;
             --section-px: clamp(1.25rem, 5vw, 6rem);
@@ -50,7 +50,7 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: var(--font-head);
+            font-family: var(--font-body);
             line-height: 1.65;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -229,10 +229,65 @@
             overflow: hidden;
         }
 
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, transparent 0%, var(--bg) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .hero-inner {
             max-width: var(--max-w);
             margin: 0 auto;
             width: 100%;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100svh - var(--nav-h));
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 60%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-image-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            filter: brightness(0.4) saturate(1.1);
+            /* Darkened for ultimate text contrast */
+            mask-image: linear-gradient(to left, black 20%, transparent 90%),
+                linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 20%, transparent 90%),
+                linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .hero-bg {
@@ -258,15 +313,24 @@
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.55rem;
+            gap: 0.65rem;
             font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.74rem;
             font-weight: 500;
             color: var(--accent2);
-            border: 1px solid rgba(62, 207, 198, 0.3);
-            padding: 0.4rem 1.1rem;
+            background: rgba(62, 207, 198, 0.06);
+            border: 1px solid rgba(62, 207, 198, 0.25);
+            padding: 0.5rem 1.2rem;
             border-radius: 100px;
-            margin-bottom: 1.75rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .hero-badge:hover {
+            background: rgba(62, 207, 198, 0.12);
+            border-color: var(--accent2);
+            transform: translateY(-1px);
         }
 
         .badge-dot {
@@ -293,20 +357,25 @@
         }
 
         .hero-title {
-            font-family: var(--font-serif);
-            font-size: clamp(2.8rem, 7.5vw, 6.5rem);
-            font-weight: 900;
-            line-height: 1.0;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.6rem;
+            font-family: var(--font-head);
+            font-size: clamp(3.2rem, 8.5vw, 6.8rem);
+            font-weight: 800;
+            line-height: 0.92;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            color: var(--text);
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            /* Added for readability */
         }
 
-        .hero-title .line1 {
+        .hero-title .name-line {
             display: block;
+            white-space: nowrap;
         }
 
-        .hero-title .line2 {
+        .hero-title .title-line {
             display: block;
+            white-space: nowrap;
             color: transparent;
             -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.25);
         }
@@ -323,6 +392,8 @@
             margin-bottom: 2.5rem;
             font-weight: 400;
             line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            /* Added for readability */
         }
 
         .hero-ctas {
@@ -860,6 +931,20 @@
         }
 
         /* ══════════════════════════════════
+     RESPONSIVE — TABLET (≤ 1100px)
+  ══════════════════════════════════ */
+        @media (max-width: 1100px) {
+            .hero-inner {
+                gap: 2.5rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.2rem, 8vw, 4.8rem);
+                line-height: 1.0;
+            }
+        }
+
+        /* ══════════════════════════════════
      RESPONSIVE — MOBILE (≤ 768px)
   ══════════════════════════════════ */
         @media (max-width: 768px) {
@@ -880,12 +965,38 @@
 
             /* Hero */
             .hero {
-                padding: calc(var(--nav-h) + 2rem) var(--section-px) 3.5rem;
-                align-items: flex-start;
+                padding: calc(var(--nav-h) + 1.5rem) var(--section-px) 4rem;
+            }
+
+            .hero-inner {
+                text-align: center;
+                align-items: center;
+            }
+
+            .hero-image-overlay {
+                width: 100%;
+                opacity: 0.4;
+                mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+                -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 100%);
+            }
+
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-badge {
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .hero-stats {
-                gap: 1.4rem;
+                gap: 1.5rem 2.5rem;
+                justify-content: center;
+                margin-top: 3.5rem;
+                display: flex;
+                flex-wrap: wrap;
             }
 
             /* Timeline */
@@ -1016,39 +1127,43 @@
     <section class="hero" id="top">
         <div class="hero-bg"></div>
         <div class="hero-grid"></div>
+        <div class="hero-image-overlay fade-up">
+            <img src="assets/images/FB_IMG_1749711052875.jpg" alt="">
+        </div>
         <div class="hero-inner">
-            <div class="hero-badge fade-up">
-                <span class="badge-dot"></span> Open to new opportunities
-            </div>
-            <h1 class="hero-title fade-up" style="transition-delay:0.1s;">
-                <span class="line1">Shaikot Kundu</span>
-                <span class="line1"><span class="accent">Akash</span></span>
-                <span class="line2">Full-Stack Engineer</span>
-            </h1>
-            <p class="hero-sub fade-up" style="transition-delay:0.2s;">
-                A passionate Lead Software Engineer crafting scalable SaaS products and AI-integrated full-stack
-                experiences from Dhaka, Bangladesh.
-            </p>
-            <div class="hero-ctas fade-up" style="transition-delay:0.3s;">
-                <a href="#projects" class="btn-primary">View Projects</a>
-                <a href="mailto:shaikotkunduakash@gmail.com" class="btn-outline">Get in Touch</a>
-            </div>
-            <div class="hero-stats fade-up" style="transition-delay:0.4s;">
-                <div>
-                    <div class="stat-num">5+</div>
-                    <div class="stat-label">Years Coding</div>
+            <div class="hero-content">
+                <div class="hero-badge fade-up">
+                    <span class="badge-dot"></span> Open to new opportunities
                 </div>
-                <div>
-                    <div class="stat-num">58</div>
-                    <div class="stat-label">Repositories</div>
+                <h1 class="hero-title fade-up" style="transition-delay:0.1s;">
+                    <span class="name-line">Shaikot Kundu <span class="accent">Akash</span></span>
+                    <span class="title-line">Full-Stack Engineer</span>
+                </h1>
+                <p class="hero-sub fade-up" style="transition-delay:0.2s;">
+                    A passionate Software Engineer crafting scalable SaaS products and AI-integrated full-stack
+                    experiences from Dhaka, Bangladesh.
+                </p>
+                <div class="hero-ctas fade-up" style="transition-delay:0.3s;">
+                    <a href="#projects" class="btn-primary">View Projects</a>
+                    <a href="mailto:shaikotkunduakash@gmail.com" class="btn-outline">Get in Touch</a>
                 </div>
-                <div>
-                    <div class="stat-num">3×</div>
-                    <div class="stat-label">NASA Champion</div>
-                </div>
-                <div>
-                    <div class="stat-num">MERN</div>
-                    <div class="stat-label">Core Stack</div>
+                <div class="hero-stats fade-up" style="transition-delay:0.4s;">
+                    <div>
+                        <div class="stat-num">3+</div>
+                        <div class="stat-label">Years Coding</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">58</div>
+                        <div class="stat-label">Repositories</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">2×</div>
+                        <div class="stat-label">NASA Champion</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">MERN</div>
+                        <div class="stat-label">Core Stack</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1061,7 +1176,7 @@
             <h2 class="section-title fade-up">The Story</h2>
             <div class="about-grid fade-up">
                 <div class="about-text">
-                    <p>I'm a <strong>Lead Software Engineer</strong> based in Dhaka, Bangladesh, with solid hands-on
+                    <p>I'm a <strong> Software Engineer</strong> based in Dhaka, Bangladesh, with solid hands-on
                         experience in <strong>full-stack development (MERN + AI/ML)</strong>. I thrive in building
                         scalable SaaS products, managing development teams, and shipping meaningful features under Agile
                         methodologies.</p>
@@ -1070,7 +1185,8 @@
                         take on.</p>
                     <p>I graduated from <strong>Daffodil International University</strong> with a CGPA of 3.49/4.00 in
                         Software Engineering (2024), and I'm currently growing as a Full Stack Developer at
-                        <strong>Shothik AI</strong>.</p>
+                        <strong>Shothik AI</strong>.
+                    </p>
                 </div>
                 <div class="about-highlight">
                     <div class="highlight-item">
@@ -1119,7 +1235,7 @@
                         <div class="tl-role">Full Stack Developer</div>
                         <div class="tl-company">Shothik AI · Dhaka, Bangladesh</div>
                         <div class="tl-desc">Building AI-powered SaaS platforms, integrating ML features into full-stack
-                            applications, and leading frontend architecture with React and Node.js.</div>
+                            applications, and ing frontend architecture with React and Node.js.</div>
                     </div>
                 </div>
                 <div class="timeline-item fade-up">
@@ -1324,7 +1440,7 @@
                         <span class="tag">SaaS Architecture</span>
                         <span class="tag">CI/CD</span>
                         <span class="tag">AI/ML Integration</span>
-                        <span class="tag">Team Leadership</span>
+                        <span class="tag">Team ership</span>
                     </div>
                 </div>
             </div>
